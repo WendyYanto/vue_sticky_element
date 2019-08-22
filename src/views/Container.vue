@@ -1,13 +1,12 @@
 <template>
   <div class="container" :style="{'background-color': backgroundColor}">
-    <h2
-      :ref="'currentTitle' + backgroundColor"
-      :style="{'color': 'white','margin': '0', 'background-color': 'black'}"
-    >{{backgroundColor}}</h2>
+    <h2 :ref="`currentTitle${backgroundColor}`" class="title">{{backgroundColor}}</h2>
   </div>
 </template>
 
 <script>
+const offset = 400;
+
 export default {
   name: "Container",
   props: {
@@ -25,14 +24,17 @@ export default {
     handleScroll() {
       const currentRef = this.getCurrentRef(this.backgroundColor);
       const windowPositionY = this.currentWindowY;
-      if (this.startTitlePosition <= windowPositionY && windowPositionY < this.endTitlePosition) {
+      if (
+        this.startTitlePosition <= windowPositionY &&
+        windowPositionY < this.endTitlePosition
+      ) {
         currentRef.classList.add("sticky");
       } else {
         currentRef.classList.remove("sticky");
       }
     },
     getCurrentRef(backgroundColor) {
-      return this.$refs[`currentTitle${backgroundColor}`]
+      return this.$refs[`currentTitle${backgroundColor}`];
     }
   },
   watch: {
@@ -43,7 +45,7 @@ export default {
   mounted() {
     const currentRef = this.getCurrentRef(this.backgroundColor);
     this.startTitlePosition = currentRef.offsetTop;
-    this.endTitlePosition = this.startTitlePosition + 400;
+    this.endTitlePosition = this.startTitlePosition + offset;
   }
 };
 </script>
@@ -58,5 +60,10 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
+}
+.title {
+  color: white;
+  margin: 0;
+  background-color: black;
 }
 </style>
