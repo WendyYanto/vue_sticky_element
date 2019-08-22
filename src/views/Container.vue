@@ -32,17 +32,7 @@ export default {
       }
     },
     getCurrentRef(backgroundColor) {
-      if (backgroundColor === "Red") {
-        return this.$refs.currentTitleRed;
-      } else if (backgroundColor === "Blue") {
-        return this.$refs.currentTitleBlue;
-      } else if (backgroundColor === "Green") {
-        return this.$refs.currentTitleGreen;
-      } else if (backgroundColor === "Yellow") {
-        return this.$refs.currentTitleYellow;
-      } else if (backgroundColor === "Black") {
-        return this.$refs.currentTitleBlack;
-      }
+      return this.$refs[`currentTitle${backgroundColor}`]
     }
   },
   watch: {
